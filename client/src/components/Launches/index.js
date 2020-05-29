@@ -2,9 +2,10 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import LaunchItem from '../LaunchItem';
+import MissionKey from '../MissionKey';
 
 const LAUNCHES_QUERY = gql`
-  {
+  query LaunchesQuery {
     launches {
       flight_number
       mission_name
@@ -14,10 +15,10 @@ const LAUNCHES_QUERY = gql`
   }
 `;
 
-function Launches() {
+const Launches = () => {
   const { loading, error, data } = useQuery(LAUNCHES_QUERY);
 
-  const renderContent = () => {
+  const renderQuery = () => {
     if (loading) return <h4>Loading...</h4>;
     if (error) console.log(error);
 
@@ -33,9 +34,10 @@ function Launches() {
   return (
     <>
       <h1 className="display-4 my-3">Launches</h1>
-      {renderContent()}
+      <MissionKey />
+      {renderQuery()}
     </>
   );
-}
+};
 
 export default Launches;
